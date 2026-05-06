@@ -4,11 +4,11 @@
 #include "reader.h"
 
 
-void bubble_index_sort(Line **data, const size_t shape, size_t *indexes) {
+void bubble_index_sort(const Line *data, const size_t shape, size_t *indexes) {
     for (size_t i = 0; i < shape - 1; i++) {
         bool has_swp = false;
         for (size_t j = 0; j < shape - i - 1; j++) {
-            if (data[indexes[j]]->flight_number > data[indexes[j + 1]]->flight_number) {
+            if (data[indexes[j]].flight_number > data[indexes[j + 1]].flight_number) {
                 has_swp = true;
                 const size_t buff = indexes[j];
                 indexes[j] = indexes[j + 1];
@@ -20,22 +20,59 @@ void bubble_index_sort(Line **data, const size_t shape, size_t *indexes) {
 }
 
 
-void compile_table(Line **data, const size_t shape, const size_t *indexes) {
-    std::cout << "#\tBort\tFlight\tAircraft\tArrival\n";
+void concat(const char *prefix, unsigned int value, char *dest, const char sep) {
+    size_t pos = 0;
+    for (; prefix[pos] != '\0'; pos++) {
+        dest[pos] = prefix[pos];
+    }
+    if (sep != '\0') {
+        dest[pos] = sep;
+        pos++;
+    }
+    unsigned int div = 1;
+    while (value / div >= 10) {
+        div *= 10;
+    }
+    while (div) {
+        dest[pos] = '0' + value / div;
+        value %= div;
+        div /= 10;
+        ++pos;
+    }
+    dest[pos] = '\0';
+}
+
+
+void time_to_str(const Time &time, char *dest) {
+    dest[0] = '0' + time.hours / 10;
+    dest[1] = '0' + time.hours % 10;
+    dest[2] = ':';
+    dest[3] = '0' + time.minutes / 10;
+    dest[4] = '0' + time.minutes % 10;
+    dest[5] = '\0';
+}
+
+
+void compile_table(const Line *data, const size_t shape, const size_t *indexes) {
+    std::cout << std::setw(4) << "#" << std::setw(16) << "Bort" << std::setw(16) << "Flight" << std::setw(15) <<
+            "Aircraft" << std::setw(9) << "Arrival" << std::endl;
     for (size_t i = 0; i < shape; i++) {
-        const Line *line = data[indexes[i]];
-        printf("%llu\t\t%s%d\t\t%s%d\t\t%s\t\t%d:%d\n", i + 1, bort_prefix, line->bort_number, flight_prefix, line->flight_number,
-           line->aircraft, line->arrival->hours, line->arrival->minutes);
+        const Line line = data[indexes[i]];
+        char bort_num[MAX_BPREFIX_LENGTH + 11];
+        char flight_num[MAX_FPREFIX_LENGTH + 11];
+        char time[6];
+        concat(line.bort_prefix, line.bort_number, bort_num, '-');
+        concat(line.flight_prefix, line.flight_number, flight_num, '\0');
+        time_to_str(line.arrival, time);
+
+        std::cout << std::setw(4) << i + 1 << std::setw(16) << bort_num << std::setw(16) << flight_num << std::setw(15) <<
+            line.aircraft << std::setw(9) << time << std::endl;
     }
 }
 
 
-void print_line(const Line *line) {
-    printf("Bort=`%d`; Flight=`%d`; Aircraft=`%s`; Time=`%d:%d`\n", line->bort_number, line->flight_number,
-           line->aircraft, line->arrival->hours, line->arrival->minutes);
-}
-
 int main() {
+    std::cout << "BOOT" << std::endl;
     setlocale(LC_ALL, "Russian");
     const auto fname = "input.txt";
     std::ifstream input(fname);
@@ -49,29 +86,23 @@ int main() {
     std::cin >> tmp;
     const bool skip_bad_lines = tmp == 'Y' || tmp == 'y';
 
-    constexpr size_t buffsize = 2000;
-    constexpr size_t df_size = 10000;
+    constexpr size_t buffsize = 512;
+    constexpr size_t df_size = 1000;
     char buffer[buffsize];
-    const auto data = new Line *[df_size];
-    for (size_t i = 0; i < df_size; i++) {
-        data[i] = nullptr;
-    }
+    Line data[df_size];
     size_t good_rows = 0;
     size_t all_rows = 0;
 
     while (input.getline(buffer, buffsize)) {
         printf("Parsing line #%llu `%s`\n", all_rows + 1, buffer);
-        Line *line = parse_line(buffer);
-        if (line == nullptr) {
+        if (!parse_line(buffer, data[good_rows])) {
             std::cerr << "Failed to parse line #" << all_rows + 1 << std::endl;
             ++all_rows;
             if (skip_bad_lines) {
                 continue;
             }
-            free_df(data);
             return -1;
         }
-        data[good_rows] = line;
         ++all_rows;
         ++good_rows;
         std::cout << "No errors detected" << std::endl;
@@ -81,8 +112,12 @@ int main() {
         }
     }
     std::cout << "Total parsed: " << good_rows << "/" << all_rows << std::endl;
+    if (good_rows == 0) {
+        std::cerr << "No good data found" << std::endl;
+        return -1;
+    }
 
-    const auto indexes = new size_t[good_rows];
+    size_t indexes[df_size];
     for (size_t i = 0; i < good_rows; i++) {
         indexes[i] = i;
     }
@@ -91,6 +126,4 @@ int main() {
 
     compile_table(data, good_rows, indexes);
 
-    delete [] indexes;
-    free_df(data);
 }
