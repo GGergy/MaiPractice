@@ -66,7 +66,7 @@ inline bool parse_time(char *str, Time &obj) {
 
 inline bool parse_flight_num(const char *str, Line &obj) {
     const size_t delim_pos = strcspn(str, "0123456789");
-    if (delim_pos >= MAX_FPREFIX_LENGTH || delim_pos >= strlen(str) - 1) {
+    if (delim_pos >= MAX_FPREFIX_LENGTH || delim_pos >= strlen(str)) {
         return false;
     }
     const int fnum = strtoi(str + delim_pos);
