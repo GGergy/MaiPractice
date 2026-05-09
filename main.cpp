@@ -4,6 +4,15 @@
 #include "reader.h"
 
 
+void bubble_index_sort(const Line *data, size_t shape, size_t *indexes);
+
+void concat(const char *prefix, unsigned int value, char *dest, char sep);
+
+void time_to_str(const Time &time, char *dest);
+
+void compile_table(const Line *data, size_t shape, const size_t *indexes);
+
+
 void bubble_index_sort(const Line *data, const size_t shape, size_t *indexes) {
     for (size_t i = 0; i < shape - 1; i++) {
         bool has_swp = false;
@@ -65,26 +74,55 @@ void compile_table(const Line *data, const size_t shape, const size_t *indexes) 
         concat(line.flight_prefix, line.flight_number, flight_num, '\0');
         time_to_str(line.arrival, time);
 
-        std::cout << std::setw(4) << i + 1 << std::setw(16) << bort_num << std::setw(16) << flight_num << std::setw(15) <<
-            line.aircraft << std::setw(9) << time << std::endl;
+        std::cout << std::setw(4) << i + 1 << std::setw(16) << bort_num << std::setw(16) << flight_num << std::setw(15)
+                <<
+                line.aircraft << std::setw(9) << time << std::endl;
     }
 }
 
 
-int main() {
+int main(const int argc, char *argv[]) {
     std::cout << "BOOT" << std::endl;
+    std::cout << "WARNING: if You use cyrillic symbols in input file, convert it to win-1251 encoding!" << std::endl;
+
+    auto fname = "input.txt";
+    bool fname_set = false;
+    bool skip_bad_lines = false;
+
+    for (int i = 1; i < argc; i++) {
+        if (const char *arg = argv[i]; arg[0] == '-') {
+            if (strcmp(arg, "-skip") == 0) {
+                skip_bad_lines = true;
+                std::cout << "Bad lines behavior set to `SKIP`" << std::endl;
+            }
+            else {
+                std::cout << "Unknown flag: `" << arg << "`" << std::endl;
+            }
+        }
+        else if (!fname_set) {
+            fname = arg;
+            fname_set = true;
+            std::cout << "File name set to `" << fname << "`" << std::endl;
+        }
+        else {
+            std::cout << "Unexpected directive: `" << arg << "`" << std::endl;
+        }
+    }
+    if (!fname_set) {
+        std::cout << "Using default input filename: `" << fname << "`" << std::endl;
+    }
+    if (!skip_bad_lines) {
+        std::cout << "Using default bad lines behavior: `FAIL`" << std::endl;
+    }
+    std::cout << "===============================================" << std::endl;
+
     setlocale(LC_ALL, "Russian");
-    const auto fname = "input.txt";
     std::ifstream input(fname);
     if (!input.is_open()) {
-        std::cerr << "Failed to open " << fname << std::endl;
+        std::cerr << "Failed to open file: `" << fname << "`" << std::endl;
         return -1;
     }
 
-    std::cout << "Ignore bad lines (fail on them if No) [Y/n]?...";
-    char tmp;
-    std::cin >> tmp;
-    const bool skip_bad_lines = tmp == 'Y' || tmp == 'y';
 
     constexpr size_t buffsize = 512;
     constexpr size_t df_size = 1000;
@@ -101,6 +139,7 @@ int main() {
             if (skip_bad_lines) {
                 continue;
             }
+            std::cerr << "Stopping program during bad lines behavior `FAIL`" << std::endl;
             return -1;
         }
         ++all_rows;
@@ -111,11 +150,13 @@ int main() {
             break;
         }
     }
+    std::cout << "===============================================" << std::endl;
     std::cout << "Total parsed: " << good_rows << "/" << all_rows << std::endl;
     if (good_rows == 0) {
         std::cerr << "No good data found" << std::endl;
         return -1;
     }
+    std::cout << "===============================================" << std::endl;
 
     size_t indexes[df_size];
     for (size_t i = 0; i < good_rows; i++) {
@@ -124,6 +165,6 @@ int main() {
 
     bubble_index_sort(data, good_rows, indexes);
 
+    std::cout << "Data table sorted by flight number:" << std::endl;
     compile_table(data, good_rows, indexes);
-
 }

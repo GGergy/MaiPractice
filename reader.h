@@ -53,7 +53,7 @@ inline bool parse_time(char *str, Time &obj) {
     }
     const int hours = strtoi(tok_h);
     const int minutes = strtoi(tok_m);
-    if (hours < 0 || minutes < 0 || hours > 23 || minutes > 59) {
+    if (hours > 23 || minutes > 59) {
         std::cerr << "Invalid time '" << hours << ":" << minutes << "'" << std::endl;
         return false;
     }
@@ -66,7 +66,7 @@ inline bool parse_time(char *str, Time &obj) {
 
 inline bool parse_flight_num(const char *str, Line &obj) {
     const size_t delim_pos = strcspn(str, "0123456789");
-    if (delim_pos >= MAX_FPREFIX_LENGTH || delim_pos >= strlen(str)) {
+    if (delim_pos >= MAX_FPREFIX_LENGTH || delim_pos >= strlen(str) || delim_pos == 0) {
         return false;
     }
     const int fnum = strtoi(str + delim_pos);
@@ -85,7 +85,7 @@ inline bool parse_flight_num(const char *str, Line &obj) {
 
 inline bool parse_bort_num(const char *str, Line &obj) {
     const size_t delim_pos = strcspn(str, "-");
-    if (delim_pos >= MAX_BPREFIX_LENGTH || delim_pos >= strlen(str) - 1) {
+    if (delim_pos >= MAX_BPREFIX_LENGTH || delim_pos >= strlen(str) - 1 || delim_pos == 0) {
         return false;
     }
     const int bnum = strtoi(str + delim_pos + 1);
@@ -131,7 +131,6 @@ inline bool parse_line(char *str, Line &row) {
         return false;
     }
     const size_t name_size = strlen(tok_model);
-    std::cout << name_size << std::endl;
     if (name_size >= MAX_NAME_LENGTH) {
         std::cerr << "Model name is too long!" << std::endl;
         return false;
