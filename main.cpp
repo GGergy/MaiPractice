@@ -1,16 +1,115 @@
+/* Шапка
+                                  ██████████        ██████████
+                                ██░░▒▒░░▒▒▒▒▓▓▓▓▓▓▓▓▒▒▒▒░░░░▒▒▓▓
+                                ██░░░░░░░░░░▒▒▒▒▒▒▒▒░░░░░░░░░░██
+                              ▓▓▒▒░░░░░░░░░░▒▒░░░░▒▒░░░░░░░░░░▒▒▓▓
+                              ██░░░░░░░░░░░░░░▒▒▒▒▒▒░░░░░░░░░░░░██
+                              ██░░░░░░░░░░░░▒▒░░░░▒▒░░░░░░░░░░░░██
+                              ██░░░░░░░░░░▒▒▒▒░░░░▒▒░░░░░░░░░░░░██
+                              ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██
+                              ██░░▒▒░░░░░░░░▒▒░░░░▒▒▒▒░░░░▒▒░░▒▒██
+                              ██░░░░░░░░░░░░░░▒▒▒▒░░░░░░░░░░░░░░██
+                              ██░░░░░░░░░░░░▒▒▒▒▒▒▒▒░░░░░░░░░░░░██
+  ██████                      ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██                      ██████
+██░░░░░░██                  ██░░░░░░░░░░░░▒▒░░░░░░░░░░░░░░░░░░░░░░██                  ██▒▒░░░░██
+██▒▒░░░░░░██                ██░░░░░░░░░░░░░░▒▒░░▒▒▒▒░░░░░░░░░░░░░░██                ██░░░░░░▒▒██
+██░░░░░░░░░░████            ██░░░░░░░░░░░░░░░░▒▒▒▒░░░░░░░░░░░░░░░░██            ████░░░░░░░░░░██
+██░░░░░░░░▒▒░░░░████████████░░░░░░░░░░░░░░░░▒▒░░░░▒▒░░░░░░░░░░░░░░░░████████████░░░░░░░░░░░░░░██
+██▒▒░░░░░░░░░░░░▒▒░░▒▒▒▒▒▒██░░░░░░░░░░░░░░░░░░░░░░▒▒░░░░░░░░░░░░░░░░██▒▒▒▒▒▒░░░░░░░░░░░░░░░░▒▒██
+██░░░░░░░░░░░░░░░░░░░░░░████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░████░░░░░░░░░░░░░░░░░░░░░░██
+  ██░░░░░░░░░░░░░░░░░░░░██▒▒██░░░░░░░░░░░░░░▒▒░░░░▒▒░░░░░░░░░░░░░░██▒▒██░░░░░░░░░░░░░░░░░░░░██
+  ██▒▒░░░░░░░░░░░░░░░░░░██▒▒░░████░░░░░░░░░░░░▒▒▒▒░░░░░░░░░░░░████░░▒▒██░░░░░░░░░░░░░░░░░░▒▒██
+  ██▒▒░░░░░░░░░░░░░░░░░░██▒▒░░▒▒▒▒██████░░░░▒▒░░▒▒▒▒░░░░██████░░▒▒░░▒▒██░░░░░░░░░░░░░░░░░░▒▒██
+    ██▒▒░░░░▒▒░░░░░░░░░░░░██░░▒▒░░▒▒▒▒░░████████████████░░▒▒▒▒░░▒▒░░██░░░░░░░░░░░░░░░░░░▒▒██
+    ██▒▒░░░░░░░░░░░░░░░░░░▒▒████░░▒▒▒▒░░▓▓▒▒▒▒▓▓▓▓░░▓▓▓▓░░▒▒▒▒░░▓▓▓▓▒▒░░░░░░░░░░░░░░░░░░░░██
+      ▓▓░░▒▒░░░░░░░░░░░░░░░░▒▒▒▒██▓▓▓▓░░▒▒▒▒░░▒▒▒▒░░▒▒▒▒░░██▓▓▓▓▒▒▒▒░░░░░░░░░░░░░░░░▒▒░░▓▓
+        ██░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░██
+          ██▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒░░██
+            ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒██
+              ████░░▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒░░████
+                  ████░░░░▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒░░░░████
+                      ██████░░▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒░░░░██████
+                            ████████░░▒▒░░░░▒▒░░░░▒▒░░░░▒▒░░████▓▓██
+                                    ████████████████████████
+
+*/
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include "reader.h"
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
+#include "read_write.h"
+
+
+auto fname = "input.txt";
 
 void bubble_index_sort(const Line *data, size_t shape, size_t *indexes);
 
-void concat(const char *prefix, unsigned int value, char *dest, char sep);
-
-void time_to_str(const Time &time, char *dest);
-
 void compile_table(const Line *data, size_t shape, const size_t *indexes);
+
+
+int main() {
+#ifdef _WIN32
+    SetConsoleOutputCP(CP_UTF8);
+#endif
+
+    std::ifstream input(fname);
+    if (!input.is_open()) {
+        std::cerr << "Failed to open file: `" << fname << "`" << std::endl;
+        return -1;
+    }
+
+    constexpr size_t buffsize = 512;
+    constexpr size_t df_size = 1000;
+    char buffer[buffsize];
+    Line data[df_size];
+    size_t good_rows = 0;
+    size_t all_rows = 0;
+    bool bad_data = false;
+
+    while (input.getline(buffer, buffsize)) {
+        const size_t line_size = strlen(buffer);
+        if (ErrCode err = parse_line(buffer, data[good_rows]);
+            err != GOOD || (err = check_logical(data, good_rows)) != GOOD) {
+            ++all_rows;
+            if (!bad_data) {
+                bad_data = true;
+                std::cout << repeat{"=", 45} << std::endl;
+                std::cout << "Bad lines:" << std::endl;
+                std::cout << repeat{"=", 45} << std::endl << std::endl;
+            }
+            restore(buffer, line_size);
+            std::cout << "#" << all_rows << " " << buffer << " ─ " << std::endl << err << std::endl << std::endl;
+            continue;
+        }
+
+        ++all_rows;
+        ++good_rows;
+        if (good_rows == df_size) {
+            std::cerr << "DataFrame size limit exceeded. End parsing" << std::endl;
+            break;
+        }
+    }
+    std::cout << repeat{"=", 45} << std::endl;
+    std::cout << "Total parsed: " << good_rows << "/" << all_rows << std::endl;
+    if (good_rows == 0) {
+        std::cerr << "No good data found" << std::endl;
+        return -1;
+    }
+    std::cout << repeat{"=", 45} << std::endl << std::endl;
+
+    size_t indexes[df_size];
+    for (size_t i = 0; i < good_rows; i++) {
+        indexes[i] = i;
+    }
+
+    bubble_index_sort(data, good_rows, indexes);
+
+    std::cout << "Data table sorted by flight number:" << std::endl;
+    compile_table(data, good_rows, indexes);
+}
 
 
 void bubble_index_sort(const Line *data, const size_t shape, size_t *indexes) {
@@ -29,142 +128,25 @@ void bubble_index_sort(const Line *data, const size_t shape, size_t *indexes) {
 }
 
 
-void concat(const char *prefix, unsigned int value, char *dest, const char sep) {
-    size_t pos = 0;
-    for (; prefix[pos] != '\0'; pos++) {
-        dest[pos] = prefix[pos];
-    }
-    if (sep != '\0') {
-        dest[pos] = sep;
-        pos++;
-    }
-    unsigned int div = 1;
-    while (value / div >= 10) {
-        div *= 10;
-    }
-    while (div) {
-        dest[pos] = '0' + value / div;
-        value %= div;
-        div /= 10;
-        ++pos;
-    }
-    dest[pos] = '\0';
-}
-
-
-void time_to_str(const Time &time, char *dest) {
-    dest[0] = '0' + time.hours / 10;
-    dest[1] = '0' + time.hours % 10;
-    dest[2] = ':';
-    dest[3] = '0' + time.minutes / 10;
-    dest[4] = '0' + time.minutes % 10;
-    dest[5] = '\0';
-}
-
-
 void compile_table(const Line *data, const size_t shape, const size_t *indexes) {
-    std::cout << std::setw(4) << "#" << std::setw(16) << "Bort" << std::setw(16) << "Flight" << std::setw(15) <<
-            "Aircraft" << std::setw(9) << "Arrival" << std::endl;
+    std::cout << "┌" << repeat{"─", 3} << "┬" << repeat{"─", 6} << "┬" << repeat{"─", 8} << "┬" <<
+            repeat{"─", 17} << "┬" << repeat{"─", 5} << "┐" << std::endl;
+    std::cout << "│" << std::setw(3) << "#" << "│" << std::setw(6) << "Bort" << "│" << std::setw(8)
+            << "Flight" << "│" << std::setw(17) << "Aircraft" << "│" << std::setw(5) << "Time" << "│" << std::endl;
+
     for (size_t i = 0; i < shape; i++) {
-        const Line line = data[indexes[i]];
-        char bort_num[MAX_BPREFIX_LENGTH + 11];
-        char flight_num[MAX_FPREFIX_LENGTH + 11];
-        char time[6];
-        concat(line.bort_prefix, line.bort_number, bort_num, '-');
-        concat(line.flight_prefix, line.flight_number, flight_num, '\0');
-        time_to_str(line.arrival, time);
+        const auto [bort_number, flight_number, aircraft, arrival] = data[indexes[i]];
+        std::cout << "├" << repeat{"─", 3} << "┼" << repeat{"─", 6}
+                << "┼" << repeat{"─", 8} << "┼" << repeat{"─", 17} << "┼"
+                << repeat{"─", 5} << "┤" << std::endl;
+        const int align = 17 + static_cast<int>(strlen(aircraft) - utf8_length(aircraft));
 
-        std::cout << std::setw(4) << i + 1 << std::setw(16) << bort_num << std::setw(16) << flight_num << std::setw(15)
-                <<
-                line.aircraft << std::setw(9) << time << std::endl;
-    }
-}
-
-
-int main(const int argc, char *argv[]) {
-    std::cout << "BOOT" << std::endl;
-    std::cout << "WARNING: if You use cyrillic symbols in input file, convert it to win-1251 encoding!" << std::endl;
-
-    auto fname = "input.txt";
-    bool fname_set = false;
-    bool skip_bad_lines = false;
-
-    for (int i = 1; i < argc; i++) {
-        if (const char *arg = argv[i]; arg[0] == '-') {
-            if (strcmp(arg, "-skip") == 0) {
-                skip_bad_lines = true;
-                std::cout << "Bad lines behavior set to `SKIP`" << std::endl;
-            }
-            else {
-                std::cout << "Unknown flag: `" << arg << "`" << std::endl;
-            }
-        }
-        else if (!fname_set) {
-            fname = arg;
-            fname_set = true;
-            std::cout << "File name set to `" << fname << "`" << std::endl;
-        }
-        else {
-            std::cout << "Unexpected directive: `" << arg << "`" << std::endl;
-        }
-    }
-    if (!fname_set) {
-        std::cout << "Using default input filename: `" << fname << "`" << std::endl;
-    }
-    if (!skip_bad_lines) {
-        std::cout << "Using default bad lines behavior: `FAIL`" << std::endl;
-    }
-    std::cout << "===============================================" << std::endl;
-
-    setlocale(LC_ALL, "Russian");
-    std::ifstream input(fname);
-    if (!input.is_open()) {
-        std::cerr << "Failed to open file: `" << fname << "`" << std::endl;
-        return -1;
+        std::cout << std::setfill(' ') << "│" << std::setw(3) << i << "│" << bort_prefix << std::setfill('0') <<
+                std::setw(4) << bort_number << "│" << flight_prefix << std::setw(4) << flight_number << "│" <<
+                std::setfill(' ') << std::setw(align) << aircraft << "│" << std::setfill('0') << std::setw(2) <<
+                arrival.hours << ":" << std::setw(2) << arrival.minutes << "│" << std::endl;
     }
 
-
-    constexpr size_t buffsize = 512;
-    constexpr size_t df_size = 1000;
-    char buffer[buffsize];
-    Line data[df_size];
-    size_t good_rows = 0;
-    size_t all_rows = 0;
-
-    while (input.getline(buffer, buffsize)) {
-        printf("Parsing line #%llu `%s`\n", all_rows + 1, buffer);
-        if (!parse_line(buffer, data[good_rows])) {
-            std::cerr << "Failed to parse line #" << all_rows + 1 << std::endl;
-            ++all_rows;
-            if (skip_bad_lines) {
-                continue;
-            }
-            std::cerr << "Stopping program during bad lines behavior `FAIL`" << std::endl;
-            return -1;
-        }
-        ++all_rows;
-        ++good_rows;
-        std::cout << "No errors detected" << std::endl;
-        if (good_rows == df_size) {
-            std::cerr << "DataFrame size limit exceeded. End parsing" << std::endl;
-            break;
-        }
-    }
-    std::cout << "===============================================" << std::endl;
-    std::cout << "Total parsed: " << good_rows << "/" << all_rows << std::endl;
-    if (good_rows == 0) {
-        std::cerr << "No good data found" << std::endl;
-        return -1;
-    }
-    std::cout << "===============================================" << std::endl;
-
-    size_t indexes[df_size];
-    for (size_t i = 0; i < good_rows; i++) {
-        indexes[i] = i;
-    }
-
-    bubble_index_sort(data, good_rows, indexes);
-
-    std::cout << "Data table sorted by flight number:" << std::endl;
-    compile_table(data, good_rows, indexes);
+    std::cout << "└" << repeat{"─", 3} << "┴" << repeat{"─", 6} << "┴" << repeat{"─", 8}
+            << "┴" << repeat{"─", 17} << "┴" << repeat{"─", 5} << "┘" << std::endl;
 }
