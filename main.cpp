@@ -30,7 +30,9 @@
 /****************************************************************/
 
 
-auto fname = "input.txt"; // Имя входного файла
+// auto fname = "input.txt"; // Имя входного файла
+auto fname = "tests/bad/all"; // Тест некорректных случаев
+// auto fname = "tests/good/all"; // Тест некорректных случаев
 
 // Индексная сортировка массива данных пузырьком
 void bubble_index_sort(const Line *data, size_t shape, size_t *indexes);
