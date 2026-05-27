@@ -89,7 +89,7 @@ inline std::ostream &operator<<(std::ostream &os, const ErrCode err) {
             os << "Бортовой номер не соответствует шаблону Б-XXXX";
             break;
         case ERR_FLIGHT_VAL:
-            os << "Номер рейса не соответствует шаблону РЕЙС{DIGIT<10**9}";
+            os << "Номер рейса не соответствует шаблону РЕЙС{0<DIGIT<10**9}";
             break;
         case ERR_NAME_LENGTH:
             os << "Модель самолета превышает допустимую длину";
@@ -243,7 +243,7 @@ inline ErrCode parse_line(char *str, Line &row) {
         return ERR_BNUM_VAL;
     }
     const int bnum_val = parse_with_prefix(bort_prefix, tok_bnum); // Парсинг числа
-    if (bnum_val == -1) {
+    if (bnum_val == -1 || bnum_val == 0) {
         // Обработка ошибки парсинга
         return ERR_BNUM_VAL;
     }
@@ -259,7 +259,7 @@ inline ErrCode parse_line(char *str, Line &row) {
         return ERR_FLIGHT_VAL;
     }
     const int flight_val = parse_with_prefix(flight_prefix, tok_flight, true);
-    if (flight_val == -1) {
+    if (flight_val == -1 || flight_val == 0) {
         return ERR_FLIGHT_VAL;
     }
     row.flight_number = flight_val;
