@@ -17,6 +17,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <cmath>
 #ifdef _WIN32
 // Доступ к win api для смены кодировки консоли, если программа собирается из-под windows
 #include <windows.h>
@@ -54,6 +55,9 @@ int main() {
         std::cerr << "Failed to open file: `" << fname << "`" << std::endl;
         return -1;
     }
+    std::cout << repeat{"=", 45} << std::endl;
+    std::cout << "Reading file: " << fname << std::endl;
+    std::cout << repeat{"=", 45} << std::endl << std::endl;
 
     constexpr size_t buffsize = 512; // Размер буфера для чтения текущей строки
     constexpr size_t df_size = 1000; // Общий размер массива данных
@@ -66,7 +70,6 @@ int main() {
 
     // Чтение строк до ошибки потока (EOF или переполнение буфера)
     while (input.getline(buffer, buffsize)) {
-
         size_t line_size = strlen(buffer); // Подсчет длины считанной строки
         // Фикс CRLF - текстовый файл создается на windows с переносом строки \r\n, а читается на Unix с переносом \n
         // Если строка оканчивается на лишний \r - отрезаем
@@ -154,29 +157,30 @@ void bubble_index_sort(const Line *data, const size_t shape, size_t *indexes) {
 // Вывод таблицы
 void compile_table(const Line *data, const size_t shape, const size_t *indexes) {
     // Шапка таблицы
-    std::cout << "┌" << repeat{"─", 3} << "┬" << repeat{"─", 6} << "┬" << repeat{"─", 8} << "┬" <<
+    std::cout << "┌" << repeat{"─", 3} << "┬" << repeat{"─", 6} << "┬" << repeat{"─", 13} << "┬" <<
             repeat{"─", 17} << "┬" << repeat{"─", 5} << "┐" << std::endl;
-    std::cout << "│" << std::setw(3) << "#" << "│" << std::setw(6) << "Bort" << "│" << std::setw(8)
+    std::cout << "│" << std::setw(3) << "#" << "│" << std::setw(6) << "Bort" << "│" << std::setw(13)
             << "Flight" << "│" << std::setw(17) << "Aircraft" << "│" << std::setw(5) << "Time" << "│" << std::endl;
 
     for (size_t i = 0; i < shape; i++) {
         // i-ая строка таблицы
         const Line line = data[indexes[i]];
         std::cout << "├" << repeat{"─", 3} << "┼" << repeat{"─", 6}
-                << "┼" << repeat{"─", 8} << "┼" << repeat{"─", 17} << "┼"
+                << "┼" << repeat{"─", 13} << "┼" << repeat{"─", 17} << "┼"
                 << repeat{"─", 5} << "┤" << std::endl;
         // Расчет выравнивания для марки ЛА с учетом особенностей UTF-8
-        const int align = 17 + static_cast<int>(strlen(line.aircraft) - utf8_length(line.aircraft));
+        const int align_model = 17 + static_cast<int>(strlen(line.aircraft) - utf8_length(line.aircraft));
+        // Расчет выравнивания для номера рейса с учетом длины числа (floor(log10(x)))
+        const int align_flight = 16 - static_cast<int>(std::floor(std::log10(line.flight_number)));
 
         // Вывод строки
         std::cout << std::setfill(' ') << "│" << std::setw(3) << i + 1 << "│" << bort_prefix << std::setfill('0') <<
-                std::setw(4) << line.bort_number << "│" << flight_prefix << std::setw(4) << line.flight_number << "│" <<
-                std::setfill(' ') << std::setw(align) << line.aircraft << "│" << std::setfill('0') << std::setw(2) <<
-                line.arrival.hours << ":" << std::setw(2) << line.arrival.minutes << "│" << std::endl;
+                std::setw(4) << line.bort_number << "│" << std::setfill(' ') << std::setw(align_flight) << flight_prefix << line.flight_number << "│" << std::setw(align_model) << line.aircraft << "│" << std::setfill('0') <<
+                std::setw(2) << line.arrival.hours << ":" << std::setw(2) << line.arrival.minutes << "│" << std::endl;
     }
 
     // Конец таблицы
-    std::cout << "└" << repeat{"─", 3} << "┴" << repeat{"─", 6} << "┴" << repeat{"─", 8}
+    std::cout << "└" << repeat{"─", 3} << "┴" << repeat{"─", 6} << "┴" << repeat{"─", 13}
             << "┴" << repeat{"─", 17} << "┴" << repeat{"─", 5} << "┘" << std::endl;
 }
 

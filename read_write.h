@@ -55,10 +55,10 @@ size_t utf8_length(const char *str);
 bool parse_time(char *str, Time &obj);
 
 // Обработка числа с префиксом (bort_prefix и flight_prefix)
-int parse_with_prefix(const char *prefix, const char *str);
+int parse_with_prefix(const char *prefix, const char *str, bool check_lead_zero = false);
 
 // Парсинг неотрицательного целого числа из строки
-int strtoi(const char *str);
+int strtoi(const char *str, bool check_lead_zero = false);
 
 // Проверка равенства времени
 bool time_cmp(const Time &a, const Time &b);
@@ -89,7 +89,7 @@ inline std::ostream &operator<<(std::ostream &os, const ErrCode err) {
             os << "Бортовой номер не соответствует шаблону Б-XXXX";
             break;
         case ERR_FLIGHT_VAL:
-            os << "Номер рейса не соответствует шаблону РЕЙСXXXX";
+            os << "Номер рейса не соответствует шаблону РЕЙС{DIGIT<10**9}";
             break;
         case ERR_NAME_LENGTH:
             os << "Модель самолета превышает допустимую длину";
@@ -136,10 +136,13 @@ inline size_t utf8_length(const char *str) {
 
 
 // Парсинг неотрицательного целого числа из строки
-inline int strtoi(const char *str) {
+// check_lead_zero - проверка на ведущий 0, по умолчанию отключена
+inline int strtoi(const char *str, const bool check_lead_zero) {
     int res = 0;
+    const bool lead_zero = str[0] == '0';
     for (int i = 0; str[i] != '\0'; i++) {
         if (str[i] >= '0' && str[i] <= '9') {
+            if (check_lead_zero && lead_zero && i > 0) return -1;
             res = res * 10 + (str[i] - '0');
         } else {
             // Возврат -1, если встретился символ не из 0-9, так как для корректного числа функция вернет res >= 0
@@ -178,11 +181,11 @@ inline bool parse_time(char *str, Time &obj) {
 
 
 // Обработка числа с префиксом (bort_prefix и flight_prefix)
-inline int parse_with_prefix(const char *prefix, const char *str) {
+inline int parse_with_prefix(const char *prefix, const char *str, const bool check_lead_zero) {
     // Поиск нужного префикса в начале строки. Не находим - ошибка
     if (strstr(str, prefix) != str) return -1;
     // Число будет лежать сдвинутым на префикс
-    return strtoi(str + strlen(prefix));
+    return strtoi(str + strlen(prefix), check_lead_zero);
 }
 
 
@@ -252,10 +255,10 @@ inline ErrCode parse_line(char *str, Line &row) {
     if (tok_flight == nullptr) {
         return ERR_TOK_COUNT;
     }
-    if (strlen(tok_flight) != strlen(flight_prefix) + 4) {
+    if (strlen(tok_flight) <= strlen(flight_prefix) || strlen(tok_flight) > strlen(flight_prefix) + 9) {
         return ERR_FLIGHT_VAL;
     }
-    const int flight_val = parse_with_prefix(flight_prefix, tok_flight);
+    const int flight_val = parse_with_prefix(flight_prefix, tok_flight, true);
     if (flight_val == -1) {
         return ERR_FLIGHT_VAL;
     }
