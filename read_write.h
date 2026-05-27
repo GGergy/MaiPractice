@@ -5,8 +5,8 @@
 
 constexpr size_t MAX_NAME_LENGTH = 18; // Максимальный размер названия модели самолёта
 
-inline auto bort_prefix = "Б-"; // Начало бортового номера
-inline auto flight_prefix = "РЕЙС"; // Начало номера рейса
+auto bort_prefix = "Б-"; // Начало бортового номера
+auto flight_prefix = "РЕЙС"; // Начало номера рейса
 
 
 // Коды ошибок
@@ -189,7 +189,7 @@ inline int parse_with_prefix(const char *prefix, const char *str) {
 // Восстановление строки после обработки strtok (убирает лишние \0)
 inline void restore(char *str, const size_t size) {
     // Заменяем все \0 обратно на пробел кроме последнего (после size)
-    for (int i = 0; i < size; i++) {
+    for (size_t i = 0; i < size; i++) {
         if (str[i] == '\0') {
             str[i] = ' ';
         }

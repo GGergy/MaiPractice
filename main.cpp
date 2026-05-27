@@ -31,8 +31,8 @@
 
 
 // auto fname = "input.txt"; // Имя входного файла
-auto fname = "tests/bad/all"; // Тест некорректных случаев
-// auto fname = "tests/good/all"; // Тест некорректных случаев
+// auto fname = "tests/bad/all"; // Тест некорректных случаев
+auto fname = "tests/good/all"; // Тест некорректных случаев
 
 // Индексная сортировка массива данных пузырьком
 void bubble_index_sort(const Line *data, size_t shape, size_t *indexes);
@@ -66,9 +66,20 @@ int main() {
 
     // Чтение строк до ошибки потока (EOF или переполнение буфера)
     while (input.getline(buffer, buffsize)) {
-        const size_t line_size = strlen(buffer); // Подсчет длины считанной строки
-        if (ErrCode err = parse_line(buffer, data[good_rows]);
-            err != GOOD || (err = check_logical(data, good_rows)) != GOOD) {
+
+        size_t line_size = strlen(buffer); // Подсчет длины считанной строки
+        // Фикс CRLF - текстовый файл создается на windows с переносом строки \r\n, а читается на Unix с переносом \n
+        // Если строка оканчивается на лишний \r - отрезаем
+        if (line_size > 0 && buffer[line_size - 1] == '\r') {
+            buffer[line_size - 1] = '\0';
+            --line_size;
+        }
+
+        ErrCode err = parse_line(buffer, data[good_rows]);
+        if (err == GOOD) {
+            err = check_logical(data, good_rows);
+        }
+        if (err != GOOD) {
             // Получаем код ошибки от функции парсинга строки
             // Если он GOOD, берем код от функции поиска логических ошибок. Если он тоже GOOD - строка корректна
             // Иначе печатаем информацию об ошибке
@@ -100,7 +111,8 @@ int main() {
     std::cout << "Total parsed: " << good_rows << "/" << all_rows << std::endl;
     if (good_rows == 0) {
         std::cerr << "No good data found" << std::endl;
-        return -1;
+        std::cout << repeat{"=", 45} << std::endl;
+        return 0;
     }
     std::cout << repeat{"=", 45} << std::endl << std::endl;
 
@@ -149,18 +161,18 @@ void compile_table(const Line *data, const size_t shape, const size_t *indexes) 
 
     for (size_t i = 0; i < shape; i++) {
         // i-ая строка таблицы
-        const auto [bort_number, flight_number, aircraft, arrival] = data[indexes[i]];
+        const Line line = data[indexes[i]];
         std::cout << "├" << repeat{"─", 3} << "┼" << repeat{"─", 6}
                 << "┼" << repeat{"─", 8} << "┼" << repeat{"─", 17} << "┼"
                 << repeat{"─", 5} << "┤" << std::endl;
         // Расчет выравнивания для марки ЛА с учетом особенностей UTF-8
-        const int align = 17 + static_cast<int>(strlen(aircraft) - utf8_length(aircraft));
+        const int align = 17 + static_cast<int>(strlen(line.aircraft) - utf8_length(line.aircraft));
 
         // Вывод строки
-        std::cout << std::setfill(' ') << "│" << std::setw(3) << i << "│" << bort_prefix << std::setfill('0') <<
-                std::setw(4) << bort_number << "│" << flight_prefix << std::setw(4) << flight_number << "│" <<
-                std::setfill(' ') << std::setw(align) << aircraft << "│" << std::setfill('0') << std::setw(2) <<
-                arrival.hours << ":" << std::setw(2) << arrival.minutes << "│" << std::endl;
+        std::cout << std::setfill(' ') << "│" << std::setw(3) << i + 1 << "│" << bort_prefix << std::setfill('0') <<
+                std::setw(4) << line.bort_number << "│" << flight_prefix << std::setw(4) << line.flight_number << "│" <<
+                std::setfill(' ') << std::setw(align) << line.aircraft << "│" << std::setfill('0') << std::setw(2) <<
+                line.arrival.hours << ":" << std::setw(2) << line.arrival.minutes << "│" << std::endl;
     }
 
     // Конец таблицы
