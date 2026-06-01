@@ -1,0 +1,77 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Страница-1" id="BeYDwjyWR07q4rJodrEW">
+    <mxGraphModel dx="2046" dy="1148" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="K5MlZwwHlRfrznYub4QV-1" edge="1" parent="1" source="K5MlZwwHlRfrznYub4QV-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="K5MlZwwHlRfrznYub4QV-5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K5MlZwwHlRfrznYub4QV-2" parent="1" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" value="Начало parse_with_prefix" vertex="1">
+          <mxGeometry height="60" width="120" x="340" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="K5MlZwwHlRfrznYub4QV-3" edge="1" parent="1" source="K5MlZwwHlRfrznYub4QV-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="K5MlZwwHlRfrznYub4QV-10" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K5MlZwwHlRfrznYub4QV-4" edge="1" parent="1" source="K5MlZwwHlRfrznYub4QV-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="K5MlZwwHlRfrznYub4QV-11" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="560.0000000000002" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="K5MlZwwHlRfrznYub4QV-5" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=2;" value="Строка str не&amp;nbsp;&lt;div&gt;начинается с prefix&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="180" x="310" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="K5MlZwwHlRfrznYub4QV-6" parent="1" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;" value="" vertex="1">
+          <mxGeometry height="113.75" width="50" x="520" y="13.129999999999999" as="geometry" />
+        </mxCell>
+        <mxCell id="K5MlZwwHlRfrznYub4QV-7" edge="1" parent="1" source="K5MlZwwHlRfrznYub4QV-2" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=2;" target="K5MlZwwHlRfrznYub4QV-6" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="520" y="73.75" as="sourcePoint" />
+            <mxPoint x="560" y="183.75" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="K5MlZwwHlRfrznYub4QV-8" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="&lt;div&gt;Аргументы&lt;/div&gt;&lt;div&gt;Строка prefix - префикс&lt;/div&gt;Строка str - строка, содержащая число&lt;div&gt;логич check_lead_zero - проверка на отсутствие ведущих нулей&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Возврат: цел res&lt;/div&gt;" vertex="1">
+          <mxGeometry height="103.75" width="250" x="560" y="18.13" as="geometry" />
+        </mxCell>
+        <mxCell id="K5MlZwwHlRfrznYub4QV-9" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Да" vertex="1">
+          <mxGeometry height="30" width="60" x="400" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="K5MlZwwHlRfrznYub4QV-10" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=2;" value="res = -1" vertex="1">
+          <mxGeometry height="35" width="90" x="355" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="K5MlZwwHlRfrznYub4QV-11" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="res = strtoi(str + длина(prefix), check_lead_zero)" vertex="1">
+          <mxGeometry height="60" width="200" x="500" y="205" as="geometry" />
+        </mxCell>
+        <mxCell id="K5MlZwwHlRfrznYub4QV-12" edge="1" parent="1" source="K5MlZwwHlRfrznYub4QV-10" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="K5MlZwwHlRfrznYub4QV-14" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="530" y="400" as="sourcePoint" />
+            <mxPoint x="400" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="K5MlZwwHlRfrznYub4QV-13" edge="1" parent="1" source="K5MlZwwHlRfrznYub4QV-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="400" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="K5MlZwwHlRfrznYub4QV-14" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Возврат res" vertex="1">
+          <mxGeometry height="40" width="110" x="345" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="K5MlZwwHlRfrznYub4QV-16" edge="1" parent="1" source="K5MlZwwHlRfrznYub4QV-11" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="600" y="310" />
+            </Array>
+            <mxPoint x="660" y="400" as="sourcePoint" />
+            <mxPoint x="400" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="K5MlZwwHlRfrznYub4QV-17" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Нет" vertex="1">
+          <mxGeometry height="30" width="60" x="480" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="K5MlZwwHlRfrznYub4QV-18" parent="1" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" value="Конец parse_with_prefix" vertex="1">
+          <mxGeometry height="60" width="120" x="340" y="400" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
